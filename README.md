@@ -52,3 +52,30 @@ from sklearn.metrics import accuracy_score
 raw_mail_data = pd.read_csv("/content/mail_dataset.csv")
 raw_mail_data.head()
 ```
+
+### 2. Data Preprocessing
+```python
+# Converting null values to empty strings
+mail_data = raw_mail_data.where((pd.notnull(raw_mail_data)), '')
+
+# Shape: returns number of rows and columns
+mail_data.shape
+
+# Label Encoding: spam = 1, ham = 0
+mail_data.loc[mail_data['Category'] == 'spam', 'Category'] = 1
+mail_data.loc[mail_data['Category'] == 'ham', 'Category'] = 0
+
+# Preview the data
+mail_data.head()
+
+# Separating input (messages) and output (labels)
+X = mail_data['Message']
+Y = mail_data['Category']
+```
+### 3. Splitting into Training and Test Data
+```python
+X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size=0.2,random_state=3)
+print(X_train.shape)
+print(X_test.shape)
+print(X.shape)
+```
