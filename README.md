@@ -152,3 +152,8 @@ if prediction[0] == 1:
 else:
   print("Ham Mail")
 ```
+
+**Model Performance:**
+The Logistic Regression model achieved an accuracy of 96.77% on the training data and 96.68% on the test data. This indicates that the model generalizes well and effectively distinguishes between spam and ham emails, making it a reliable classifier for mail classification tasks.
+
+🎉 THANK YOU FOR YOUR TIME FOR VISITING MY PROJECT! 🎉
