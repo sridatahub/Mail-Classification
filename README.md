@@ -26,6 +26,9 @@ The project follows a structured machine learning pipeline:
 
 5. **Model Training and Evaluation**  
    Train a Logistic Regression model and evaluate it using accuracy, confusion matrix, and other metrics.
+6. **Building Predictive system**
+   Check our model with unseen data 
+   
 
 ---
 
@@ -78,4 +81,74 @@ X_train,X_test,Y_train,Y_test = train_test_split(X,Y,test_size=0.2,random_state=
 print(X_train.shape)
 print(X_test.shape)
 print(X.shape)
+```
+### 4. Feature Extraction
+
+```python
+# Transforming the text data into feature vectors that can be used as input for our model (Logistic Regression)
+Feature_Extraction = TfidfVectorizer(min_df=1, stop_words='english', lowercase=True)
+
+# Applying TF-IDF transformation to training and testing message data
+X_train_features = Feature_Extraction.fit_transform(X_train)
+X_test_features = Feature_Extraction.transform(X_test)
+
+# Checking the data type of the labels
+Y_train.dtype
+
+# Converting label data from object to integer type to avoid issues during model training
+Y_train = Y_train.astype('int')
+Y_test = Y_test.astype('int')
+
+# Confirming label data type
+Y_train.dtype
+
+# View raw text data before transformation
+print(X_train)
+
+# View transformed numerical feature vectors
+print(X_train_features)
+```
+### 5. Model Training and Evaluation
+
+```python
+# Creating and training the Logistic Regression model
+model = LogisticRegression()
+model.fit(X_train_features, Y_train)
+
+# Prediction on training data
+training_data_prediction = model.predict(X_train_features)
+training_data_accuracy = accuracy_score(Y_train, training_data_prediction)
+print("Prediction on training data:", training_data_accuracy)
+
+# Prediction on test data
+test_data_prediction = model.predict(X_test_features)
+test_data_accuracy = accuracy_score(Y_test, test_data_prediction)
+print("Prediction on test data:", test_data_accuracy)
+
+### 6. Predictive System Building
+
+```python
+# Sample input mail
+mail_input = ["Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA to 87121 to receive entry question(std txt rate)T&C's apply 08452810075over18's"]
+
+# Transforming the input using the same TF-IDF vectorizer
+mail_input_features = Feature_Extraction.transform(mail_input)
+
+# Making prediction
+prediction = model.predict(mail_input_features)
+
+# Displaying result
+if prediction[0] == 1:
+    print("Spam Mail")
+else:
+    print("Ham Mail")
+```
+```python
+mail_input2 = ["I'm gonna be home soon and i don't want to talk about this stuff anymore tonight, k? I've cried enough today."]
+mail_input_features = Feature_Extraction.transform(mail_input2)
+prediction = model.predict(mail_input_features)
+if prediction[0] == 1:
+  print("Spam Mail")
+else:
+  print("Ham Mail")
 ```
