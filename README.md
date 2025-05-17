@@ -38,3 +38,17 @@ The project follows a structured machine learning pipeline:
 - Matplotlib / Seaborn (for optional visualizations)
 
 ---
+### 1. Importing Libraries and Dataset
+
+```python
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer  # To convert our text to numerical vectors
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+#Loading the csv data file into pandas dataframe.
+raw_mail_data = pd.read_csv("/content/mail_dataset.csv")
+raw_mail_data.head()
+```
